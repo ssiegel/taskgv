@@ -79,7 +79,7 @@ def get_json(query):
 
 def call_dot(instr):
     'call dot, returning stdout and stdout'
-    dot = Popen('dot -Tpng'.split(), stdout=PIPE, stderr=PIPE, stdin=PIPE)
+    dot = Popen('dot -Tpdf'.split(), stdout=PIPE, stderr=PIPE, stdin=PIPE)
     return dot.communicate(instr.encode('utf-8'))
 
 if __name__ == '__main__':
@@ -171,15 +171,15 @@ if __name__ == '__main__':
     lines.append(FOOTER)
 
     print ('Calling dot')
-    png, err = call_dot('\n'.join(lines))
+    pdf, err = call_dot('\n'.join(lines))
     if err != '':
         print ('Error calling dot:')
         print (err.strip())
 
-    fd, tmpname = mkstemp('.png', 'taskgv-')
+    fd, tmpname = mkstemp('.pdf', 'taskgv-')
     print ('Writing to %s' % tmpname)
     with fdopen(fd, 'w') as f:
-        f.write(png)
+        f.write(pdf)
 
 # Use `xdg-open` if it's present, `open` otherwise.
 display_command = spawn.find_executable("xdg-open")
