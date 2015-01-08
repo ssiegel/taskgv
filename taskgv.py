@@ -52,7 +52,7 @@ dir = 'back'
 #HEADER = "digraph  dependencies { splines=true; overlap=ortho; rankdir=LR; weight=2;"
 
 # Spread tasks on page:
-HEADER = "digraph  dependencies { layout=neato;   splines=true; overlap=scalexy;  rankdir=LR; weight=2;"
+HEADER = "digraph  dependencies { layout=neato;   splines=true; overlap=scalexy;  rankdir=LR; weight=2; esep=0.5;"
 
 # More information on setting up Graphviz: http://www.graphviz.org/doc/info/attrs.html
 
