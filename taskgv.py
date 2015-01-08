@@ -6,6 +6,8 @@ import subprocess
 import sys
 import textwrap
 from distutils import spawn
+from tempfile import mkstemp
+from os import fdopen
 
 # Typical command line usage:
 #
@@ -174,8 +176,9 @@ if __name__ == '__main__':
         print ('Error calling dot:')
         print (err.strip())
 
-    print ('Writing to /tmp/taskgv.png')
-    with open('/tmp/taskgv.png', 'w') as f:
+    fd, tmpname = mkstemp('.png', 'taskgv-')
+    print ('Writing to %s' % tmpname)
+    with fdopen(fd, 'w') as f:
         f.write(png)
 
 # Use `xdg-open` if it's present, `open` otherwise.
@@ -183,4 +186,4 @@ display_command = spawn.find_executable("xdg-open")
 if display_command == None:
     display_command = spawn.find_executable("open")
 
-subprocess.call(display_command + " /tmp/taskgv.png", shell = True)
+subprocess.call([display_command, tmpname])
