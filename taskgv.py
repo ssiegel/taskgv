@@ -73,7 +73,7 @@ def call_taskwarrior(cmd):
 def get_json(query):
     'call taskwarrior, returning objects from json'
     result, err = call_taskwarrior('end.after:today xor status:pending export %s' % query)
-    return json.loads(JSON_START + result + JSON_END)
+    return json.loads(JSON_START + result.strip().replace("\n",",") + JSON_END)
 
 def call_dot(instr):
     'call dot, returning stdout and stdout'
